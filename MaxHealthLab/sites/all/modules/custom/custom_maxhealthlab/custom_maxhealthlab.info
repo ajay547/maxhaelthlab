@@ -1,5 +1,0 @@
-name = Custom MaxHealthLab 
-description = Custom changes in drupal core.
-package = Custom	
-core = 6.x
-version = "6.x-1"
