@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * Implementation of hook_views_api().
+ */
+function testimonial_views_api() {
+  return array(
+    'api' => 2,
+  );
+}
+
+function testimonial_theme($existing, $type, $theme, $path) {
+  return array(
+    'views_view__testimonials_page__page_1' => array (
+      'arguments' => array('view' => NULL),
+      'template' => 'views-view--testimonials-page--page-1',
+      'original hook' => 'views_view',
+    ),
+    'views_view_unformatted__testimonials_page__page_1' => array(
+      'arguments' => array('view' => NULL, 'options' => NULL, 'rows' => NULL, 'title' => NULL),
+      'template' => 'views-view-unformatted--testimonials-page--page-1',
+      'original hook' => 'views-view-unformatted',
+    ),
+  );
+}
+
+function testimonial_menu() {
+  $items = array();
+  $items['testimonials/add'] = array(
+    'title' => 'Create New Testimonial',
+    'page callback' => 'testimonial_create',
+    'access arguments' => array('create testimonial content'),
+    'type' => MENU_LOCAL_TASK,
+  );
+  return $items;
+}
+
+function testimonial_create() {
+  drupal_goto('node/add/testimonial');
+}
+
+function testimonial_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  switch ($op) {
+    case 'view':
+      if ($node->type == 'testimonial') {
+        drupal_goto('testimonials');
+      }
+      break;
+  }
+}

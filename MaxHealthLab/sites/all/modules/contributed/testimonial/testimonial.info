@@ -1,0 +1,14 @@
+name = Testimonial
+description = Creates a testimonial content type and associated views.
+core = 6.x
+package = Worx Components
+dependencies[] = content_copy
+dependencies[] = link
+dependencies[] = views
+
+; Information added by drupal.org packaging script on 2011-02-25
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "testimonial"
+datestamp = "1298620382"
+

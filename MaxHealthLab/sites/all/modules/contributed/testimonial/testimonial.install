@@ -1,0 +1,25 @@
+<?php
+
+function testimonial_install() {
+  db_query("UPDATE {system} SET weight = 11 WHERE name = 'testimonial'");
+  module_load_include('inc', 'testimonial', 'testimonial.cck');
+  $form_state['values']['type_name'] = '<create>';
+  $form_state['values']['macro'] = testimonial_cck_export();
+  drupal_execute('content_copy_import_form', $form_state);
+}
+
+function testimonial_uninstall() {
+  node_type_delete('testimonial');
+  $query = db_query("DELETE FROM {content_node_field_instance} WHERE field_name = 'field_testimonial_link'");
+  if ($query) {
+    drupal_set_message('Field successfully deleted.');
+  }
+  $query = db_query("DELETE FROM {content_node_field} WHERE field_name = 'field_testimonial_link'");
+  if ($query) {
+    drupal_set_message('Field instance successfully deleted.');
+  }
+  $query = db_query("DROP TABLE {content_type_testimonial}");
+  if ($query) {
+    drupal_set_message('Table successfully dropped.');
+  }
+}
